@@ -1,0 +1,196 @@
+{% load static %}
+
+{% load cart_template_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Djanggo Ecommerce</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href=" {% static 'css/style.min.css' %}" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+     
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light">
+    <!-- Topbar -->
+    <div class="container navbar-topbar">
+      <nav class="js-mega-menu navbar-nav-wrap">
+        <!-- Toggler -->
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#topbarNavDropdown" aria-controls="topbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="d-flex justify-content-between align-items-center">
+            <span class="navbar-toggler-text">Topbar</span>
+
+            <span class="navbar-toggler-default">
+              <i class="bi-chevron-down ms-2"></i>
+            </span>
+            <span class="navbar-toggler-toggled">
+              <i class="bi-chevron-up ms-2"></i>
+            </span>
+          </span>
+        </button>
+        <!-- End Toggler -->
+
+        
+    <!-- End Topbar -->
+
+    <div class="container">
+      <nav class="js-mega-menu navbar-nav-wrap">
+        <!-- Default Logo -->
+        <a class="navbar-brand" href="{% static 'demo-shop/index.html' %}" aria-label="Front">
+          <img class="navbar-brand-logo" src="{% static 'assets/svg/logos/logo.svg' %}" alt="Logo">
+        </a>
+        <!-- End Default Logo -->
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-default">
+            <i class="bi-list"></i>
+          </span>
+          <span class="navbar-toggler-toggled">
+            <i class="bi-x"></i>
+          </span>
+        </button>
+        <!-- End Toggler -->
+      
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+			  {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'boldmann_wears:home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'boldmann_wears:category' %}">Categories</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="hs-has-sub-menu nav-item">
+              <a id="listingsDropdown" class="hs-mega-menu-invoker nav-link " href="{% url 'boldmann_wears:products' %}" role="button" aria-expanded="false">Listings</a>
+            </li>
+            <!-- End Dropdown -->
+			
+            <li class="nav-item">
+                 <a class="nav-link waves-effect">
+                Hi {{ user.username }}!
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'users:logout' %}">Logout</a>
+            </li>
+
+            <!-- Pages -->
+            
+            <!-- End Pages -->
+          
+            
+            
+              <!-- Shopping Cart -->
+              <li class="nav-item">
+                <a href="{% url 'boldmann_wears:order_summary' %}" class="nav-link waves-effect">
+                {% if request.user|cart_item_count != 0 %}
+                  <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
+                {% endif %}
+                <i class="fas fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                </a>
+            </li>
+              <!-- End Shopping Cart -->
+            
+              
+            </li>
+          </ul>
+          {% else %}
+          <ul class="navbar-nav">
+				  <li class="hs-has-sub-menu nav-item">
+                <a id="portfolioMegaMenu" class="hs-mega-menu-invoker nav-link" href="{% url 'users:register' %}" role="button" aria-expanded="false">Register</a>
+
+                <!-- Mega Menu -->
+                
+                <!-- End Mega Menu -->
+              </li>
+              <li class="hs-has-sub-menu nav-item">
+                <a id="portfolioMegaMenu" class="hs-mega-menu-invoker nav-link" href="{% url 'users:login' %}" role="button" aria-expanded="false">Log in</a>
+
+                <!-- Mega Menu -->
+                
+                <!-- End Mega Menu -->
+              </li>
+           {% endif %}
+			  </ul>
+        </div>
+        <!-- End Collapse -->
+      </nav>
+    </div>
+  </header>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  
+  <!-- Navbar -->
+<!--
+  <div class="mt-5 pt-4">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    </div>
+-->
+
+    {% block content %}
+    {% endblock content %}
+
+    
+
+
+    {% include "boldmann_wears/script.html" %}
+
+    {% block extra_script %}
+    {% endblock extra_script %}
+
+</body>
+
+</html>

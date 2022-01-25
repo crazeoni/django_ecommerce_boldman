@@ -1,0 +1,23 @@
+{% extends "workstarr/base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block header %}
+	<h2>Create your profile</h2>
+{% endblock header %}
+{% block content %}
+
+<form method="post" action="{% url 'starrprofile:create_profile' %}" class="form">
+	{% csrf_token %}
+	{% bootstrap_form form %}
+	
+	{% buttons %}
+	<button name="submit" class=""btn btn-primary">update</button>
+	{% endbuttons %}
+
+<input type="hidden" name="next" value="{% url 'starrprofile:view_profile' %}" />	
+</form>
+
+
+
+{% endblock content %}
